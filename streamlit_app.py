@@ -1,6 +1,7 @@
 import streamlit as st
 import replicate
 import os
+import dialogflow_v2 as dialogflow
 
 # App title
 st.set_page_config(page_title="Emo-chatbot🤖")
@@ -8,7 +9,7 @@ st.set_page_config(page_title="Emo-chatbot🤖")
 # Replicate Credentials
 with st.sidebar:
     st.title('Emo-chatbot🤖')
-    st.write('This chatbot is created using the open-source Llama 2 LLM model from Meta.')
+    # st.write('This chatbot is created using the open-source Llama 2 LLM model from Meta.')
     if 'REPLICATE_API_TOKEN' in st.secrets:
         st.success('API key already provided!', icon='✅')
         replicate_api = st.secrets['REPLICATE_API_TOKEN']
@@ -76,3 +77,48 @@ if st.session_state.messages[-1]["role"] != "assistant":
             placeholder.markdown(full_response)
     message = {"role": "assistant", "content": full_response}
     st.session_state.messages.append(message)
+
+
+# Set up Dialogflow client
+DIALOGFLOW_PROJECT_ID = 'your-dialogflow-project-id'
+DIALOGFLOW_LANGUAGE_CODE = 'en'
+SESSION_ID = 'unique-session-id'
+
+# App title
+st.set_page_config(page_title="OINK🐷")
+
+# Replicate Credentials
+# Your existing Replicate credentials code here...
+
+# Store LLM generated responses
+if "messages" not in st.session_state.keys():
+    st.session_state.messages = [{"role": "assistant", "content": "How may I assist you today?"}]
+
+# Display or clear chat messages
+# Your existing chat messages code here...
+
+# Function for generating LLaMA2 response
+# Your existing LLaMA2 response generation code here...
+
+# Function to interact with Dialogflow
+def send_message_to_dialogflow(message):
+    session_client = dialogflow.SessionsClient()
+    session = session_client.session_path(DIALOGFLOW_PROJECT_ID, SESSION_ID)
+    text_input = dialogflow.types.TextInput(text=message, language_code=DIALOGFLOW_LANGUAGE_CODE)
+    query_input = dialogflow.types.QueryInput(text=text_input)
+    response = session_client.detect_intent(session=session, query_input=query_input)
+    return response.query_result.fulfillment_text
+
+# User-provided prompt
+# Your existing user prompt code here...
+
+# Generate a new response if last message is not from assistant
+# Your existing response generation code here...
+
+# Process user input and get response from Dialogflow
+if st.session_state.messages[-1]["role"] != "assistant":
+    with st.chat_message("assistant"):
+        with st.spinner("Thinking..."):
+            response = send_message_to_dialogflow(prompt)
+            st.write(response)
+    st.session_state.messages.append({"role": "assistant", "content": response})
