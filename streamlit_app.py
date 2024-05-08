@@ -3,11 +3,11 @@ import replicate
 import os
 
 # App title
-st.set_page_config(page_title="OINK🐷")
+st.set_page_config(page_title="Emo-chatbot🤖")
 
 # Replicate Credentials
 with st.sidebar:
-    st.title('OINK🐷')
+    st.title('Emo-chatbot🤖')
     st.write('This chatbot is created using the open-source Llama 2 LLM model from Meta.')
     if 'REPLICATE_API_TOKEN' in st.secrets:
         st.success('API key already provided!', icon='✅')
