@@ -80,10 +80,13 @@ import streamlit as st
 import replicate
 import os
 import dialogflow_v2 as dialogflow
+<<<<<<< HEAD
 # Set up Dialogflow client
 DIALOGFLOW_PROJECT_ID = 'big-mouth-422019'
 DIALOGFLOW_LANGUAGE_CODE = 'en'
 SESSION_ID = 'unique-session-id'
+=======
+>>>>>>> 9a0a9467815f4eaea35dfd0201dafff18f93869f
 
 # App title
 st.set_page_config(page_title="Emo-chatbot🤖")
@@ -161,9 +164,19 @@ if st.session_state.messages[-1]["role"] != "assistant":
     st.session_state.messages.append(message)
 
 
+<<<<<<< HEAD
 
 
 
+=======
+# Set up Dialogflow client
+DIALOGFLOW_PROJECT_ID = 'your-dialogflow-project-id'
+DIALOGFLOW_LANGUAGE_CODE = 'en'
+SESSION_ID = 'unique-session-id'
+
+# App title
+st.set_page_config(page_title="OINK🐷")
+>>>>>>> 9a0a9467815f4eaea35dfd0201dafff18f93869f
 
 # Replicate Credentials
 # Your existing Replicate credentials code here...
@@ -199,4 +212,8 @@ if st.session_state.messages[-1]["role"] != "assistant":
         with st.spinner("Thinking..."):
             response = send_message_to_dialogflow(prompt)
             st.write(response)
+<<<<<<< HEAD
     
+=======
+    st.session_state.messages.append({"role": "assistant", "content": response})
+>>>>>>> 9a0a9467815f4eaea35dfd0201dafff18f93869f
